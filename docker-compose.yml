@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15
+    container_name: postgres-todolist
+    restart: always
+    environment:
+      POSTGRES_DB: todolistdb
+      POSTGRES_USER: todolistuser
+      POSTGRES_PASSWORD: todolistpassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    container_name: todolist-app
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/todolistdb
+      SPRING_DATASOURCE_USERNAME: todolistuser
+      SPRING_DATASOURCE_PASSWORD: todolistpassword
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
