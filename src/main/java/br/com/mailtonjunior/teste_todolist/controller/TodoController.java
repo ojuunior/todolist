@@ -26,7 +26,7 @@ public class TodoController {
     public Todo getById(@PathVariable Long id) {
         return todoService.getById(id);
     }
-    
+
     @PostMapping
     public List<Todo> create(@RequestBody Todo todo) {
         return todoService.create(todo);
@@ -47,5 +47,4 @@ public class TodoController {
         return todoService.listByStatus(status);
     }
 
-    
 }
