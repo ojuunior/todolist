@@ -64,6 +64,68 @@ http://localhost:8080/swagger-ui.html
      mvn test
      ```
 
+
+### Como Utilizar a API
+
+#### 1. Listar todas as tarefas
+
+**Requisição:**
+
+```bash
+curl -X GET "http://localhost:8080/todos" -H "accept: application/json"
+```
+
+#### 2. Listar tarefas por status
+
+**Requisição:**
+
+```bash
+curl -X GET "http://localhost:8080/todos/status?status=PENDENTE" -H "accept: application/json"
+```
+
+Substitua `PENDENTE` pelo status desejado (`PENDENTE`, `EM_ANDAMENTO`, `CONCLUIDA`).
+
+#### 3. Obter uma tarefa por ID
+
+**Requisição:**
+
+```bash
+curl -X GET "http://localhost:8080/todos/{id}" -H "accept: application/json"
+```
+
+Substitua `{id}` pelo ID da tarefa que deseja obter.
+
+#### 4. Criar uma nova tarefa
+
+**Requisição:**
+
+```bash
+curl -X POST "http://localhost:8080/todos" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"titulo\": \"Nova Tarefa\", \"descricao\": \"Descrição da tarefa\", \"dataConclusao\": \"2024-12-31\", \"status\": \"PENDENTE\"}"
+```
+
+#### 5. Atualizar uma tarefa existente
+
+**Requisição:**
+
+```bash
+curl -X PUT "http://localhost:8080/todos/{id}" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"titulo\": \"Tarefa Atualizada\", \"descricao\": \"Descrição atualizada\", \"dataConclusao\": \"2024-12-31\", \"status\": \"EM_ANDAMENTO\"}"
+```
+
+Substitua `{id}` pelo ID da tarefa que deseja atualizar.
+
+#### 6. Excluir uma tarefa
+
+**Requisição:**
+
+```bash
+curl -X DELETE "http://localhost:8080/todos/{id}" -H "accept: application/json"
+```
+
+Substitua `{id}` pelo ID da tarefa que deseja excluir.
+
+---
+
+
 ## Estrutura do Projeto
 
 - **`controller`**: Contém os controladores REST para as operações da API.
