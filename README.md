@@ -1,6 +1,6 @@
 # To-Do List API
 
-Este projeto é uma API simples para gerenciamento de tarefas (To-Do List) desenvolvida em Java utilizando Spring Boot. A aplicação permite a criação, visualização, atualização e exclusão de tarefas, com persistência dos dados em um banco de dados PostgreSQL. 
+Este projeto é uma API simples para gerenciamento de tarefas (To-Do List) desenvolvida em Java utilizando Spring Boot. A aplicação permite a criação, visualização, atualização e exclusão de tarefas, com persistência dos dados em um banco de dados PostgreSQL.
 
 ## Funcionalidades
 
@@ -51,25 +51,35 @@ http://localhost:8080/swagger-ui.html
    mvn clean package
    ```
 
-3. **Executando com Docker**:
+3. **Configurando o PostgreSQL**:
+   - Certifique-se de que o PostgreSQL está instalado e funcionando.
+   - Crie um banco de dados chamado `todolist`.
+   - Configure as credenciais de acesso ao banco de dados no arquivo `application.properties` ou como variáveis de ambiente:
+
+   ```properties
+   spring.datasource.url=jdbc:postgresql://localhost:5432/todolist
+   spring.datasource.username=seu-usuario
+   spring.datasource.password=sua-senha
+   ```
+
+4. **Executando a aplicação com Docker**:
    - Certifique-se de que o Docker está instalado e funcionando corretamente.
    - Execute o comando:
      ```bash
      docker-compose up --build
      ```
 
-4. **Testes**:
+5. **Testes**:
    - Para rodar os testes unitários, utilize o comando:
      ```bash
      mvn test
      ```
 
-
 ### Como Utilizar a API
 
-#### 1. Listar todas as tarefas
+Aqui estão exemplos de como interagir com a API utilizando `curl`:
 
-**Requisição:**
+#### 1. Listar todas as tarefas
 
 ```bash
 curl -X GET "http://localhost:8080/todos" -H "accept: application/json"
@@ -77,27 +87,19 @@ curl -X GET "http://localhost:8080/todos" -H "accept: application/json"
 
 #### 2. Listar tarefas por status
 
-**Requisição:**
-
 ```bash
 curl -X GET "http://localhost:8080/todos/status?status=PENDENTE" -H "accept: application/json"
 ```
-
-Substitua `PENDENTE` pelo status desejado (`PENDENTE`, `EM_ANDAMENTO`, `CONCLUIDA`).
+- Substitua `PENDENTE` pelo status desejado (`PENDENTE`, `EM_ANDAMENTO`, `CONCLUIDA`).
 
 #### 3. Obter uma tarefa por ID
-
-**Requisição:**
 
 ```bash
 curl -X GET "http://localhost:8080/todos/{id}" -H "accept: application/json"
 ```
-
-Substitua `{id}` pelo ID da tarefa que deseja obter.
+- Substitua `{id}` pelo ID da tarefa que deseja obter.
 
 #### 4. Criar uma nova tarefa
-
-**Requisição:**
 
 ```bash
 curl -X POST "http://localhost:8080/todos" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"titulo\": \"Nova Tarefa\", \"descricao\": \"Descrição da tarefa\", \"dataConclusao\": \"2024-12-31\", \"status\": \"PENDENTE\"}"
@@ -105,26 +107,17 @@ curl -X POST "http://localhost:8080/todos" -H "accept: application/json" -H "Con
 
 #### 5. Atualizar uma tarefa existente
 
-**Requisição:**
-
 ```bash
 curl -X PUT "http://localhost:8080/todos/{id}" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"titulo\": \"Tarefa Atualizada\", \"descricao\": \"Descrição atualizada\", \"dataConclusao\": \"2024-12-31\", \"status\": \"EM_ANDAMENTO\"}"
 ```
-
-Substitua `{id}` pelo ID da tarefa que deseja atualizar.
+- Substitua `{id}` pelo ID da tarefa que deseja atualizar.
 
 #### 6. Excluir uma tarefa
-
-**Requisição:**
 
 ```bash
 curl -X DELETE "http://localhost:8080/todos/{id}" -H "accept: application/json"
 ```
-
-Substitua `{id}` pelo ID da tarefa que deseja excluir.
-
----
-
+- Substitua `{id}` pelo ID da tarefa que deseja excluir.
 
 ## Estrutura do Projeto
 
@@ -146,3 +139,5 @@ Substitua `{id}` pelo ID da tarefa que deseja excluir.
 - **JUnit**
 - **Mockito**
 - **Docker**
+
+---
